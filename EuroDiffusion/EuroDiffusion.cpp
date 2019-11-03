@@ -45,12 +45,12 @@ void coinCycle(City*** europe, int rows, int columns, int countries, std::map<st
 		return;
 	}
 
-	int outputs = 0;
+	int checkedCountriesCounter = 0;
 	int days = 0;
-	std::map<std::string, int> cities_checked_num;
-	std::map<std::string, bool> countries_checked;
+	std::map<std::string, int> checkedCitiesCounts;
+	std::map<std::string, bool> checkedCountries;
 
-	while (outputs < countries)
+	while (checkedCountriesCounter < countries)
 	{
 		for (int i = 0; i < rows + 1; i++)
 		{
@@ -73,13 +73,13 @@ void coinCycle(City*** europe, int rows, int columns, int countries, std::map<st
 					if (!europe[i][j]->getIsChecked() && europe[i][j]->isAllCoinsCollected(countries))
 					{
 						std::string country = europe[i][j]->getCountry();
-						if (cities_checked_num.find(country) != cities_checked_num.end())
+						if (checkedCitiesCounts.find(country) != checkedCitiesCounts.end())
 						{
-							cities_checked_num[country]++;
+							checkedCitiesCounts[country]++;
 						}
 						else
 						{
-							cities_checked_num[country] = 1;
+							checkedCitiesCounts[country] = 1;
 						}
 						europe[i][j]->setChecked(true);
 					}
@@ -87,15 +87,15 @@ void coinCycle(City*** europe, int rows, int columns, int countries, std::map<st
 			}
 		}
 
-		for (std::map<std::string, int>::iterator it = cities_checked_num.begin(); it != cities_checked_num.end(); ++it)
+		for (std::map<std::string, int>::iterator it = checkedCitiesCounts.begin(); it != checkedCitiesCounts.end(); ++it)
 		{
 			if (it->second == cities_num[it->first])
 			{
-				if (countries_checked.find(it->first) == countries_checked.end())
+				if (checkedCountries.find(it->first) == checkedCountries.end())
 				{
 					std::cout << it->first << " " << days << std::endl;
-					outputs++;
-					countries_checked[it->first] = true;
+					checkedCountriesCounter++;
+					checkedCountries[it->first] = true;
 				}
 			}
 		}		
