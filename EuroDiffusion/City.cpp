@@ -10,7 +10,7 @@ City::City(std::string country, int x, int y)
 	_balance[_country] = 1000000;
 }
 
-void City::recieveCoins(std::string country, int coins)
+void City::RecieveCoins(std::string country, int coins)
 {
 	if (_tempBalance.find(country) != _tempBalance.end())
 	{
@@ -22,7 +22,7 @@ void City::recieveCoins(std::string country, int coins)
 	}
 }
 
-void City::endDay()
+void City::EndDay()
 {
 	for (auto it = _tempBalance.begin(); it != _tempBalance.end(); it++)
 	{
@@ -38,7 +38,7 @@ void City::endDay()
 	}
 }
 
-bool City::isAllCoinsCollected(int countOfTypes)
+bool City::IsAllCoinsCollected(int countOfTypes)
 {
 	int count = 0;
 	for (std::map<std::string, int>::iterator it = _balance.begin(); it != _balance.end(); ++it)
@@ -51,55 +51,37 @@ bool City::isAllCoinsCollected(int countOfTypes)
 	return count == countOfTypes;
 }
 
-void City::setChecked(bool value)
+void City::SendCoins(City*** europe)
 {
-	_isChecked = value;
-}
-
-std::string City::getCountry()
-{
-	return _country;
-}
-
-void City::sendCoins(City*** europe, int rows, int columns)
-{
-	std::map<std::string, int> balanceToTransport = calculateBalanceToTransport();
-	if (_x < rows && europe[_x + 1][_y] != nullptr)
+	std::map<std::string, int> balanceToTransport = ÑalculateBalanceToTransport();
+	if (europe[_x + 1][_y] != nullptr)
 	{
-		for (auto it = _balance.begin(); it != _balance.end(); ++it)
-		{
-			europe[_x + 1][_y]->recieveCoins(it->first, balanceToTransport[it->first]);
-			it->second -= balanceToTransport[it->first];
-		}
-		
+		SendCoinsToCity(_x + 1, _y, europe, balanceToTransport);
 	}
-	if (_x > 0 && europe[_x - 1][_y] != nullptr)
+	if (europe[_x - 1][_y] != nullptr)
 	{
-		for (auto it = _balance.begin(); it != _balance.end(); ++it)
-		{
-			europe[_x - 1][_y]->recieveCoins(it->first, balanceToTransport[it->first]);
-			it->second -= balanceToTransport[it->first];
-		}
+		SendCoinsToCity(_x - 1, _y, europe, balanceToTransport);
 	}
-	if (_y < columns && europe[_x][_y + 1] != nullptr)
+	if (europe[_x][_y + 1] != nullptr)
 	{
-		for (auto it = _balance.begin(); it != _balance.end(); ++it)
-		{
-			europe[_x][_y + 1]->recieveCoins(it->first, balanceToTransport[it->first]);
-			it->second -= balanceToTransport[it->first];
-		}
+		SendCoinsToCity(_x, _y + 1, europe, balanceToTransport);
 	}
-	if (_y > 0 && europe[_x][_y - 1] != nullptr)
+	if (europe[_x][_y - 1] != nullptr)
 	{ 
-		for (auto it = _balance.begin(); it != _balance.end(); ++it)
-		{
-			europe[_x][_y - 1]->recieveCoins(it->first, balanceToTransport[it->first]);
-			it->second -= balanceToTransport[it->first];
-		}
+		SendCoinsToCity(_x, _y - 1, europe, balanceToTransport);
 	}
 }
 
-std::map<std::string, int> City::calculateBalanceToTransport()
+void City::SendCoinsToCity(int x, int y, City*** europe, std::map<std::string, int> balanceToTransport)
+{
+	for (auto it = _balance.begin(); it != _balance.end(); ++it)
+	{
+		europe[x][y]->RecieveCoins(it->first, balanceToTransport[it->first]);
+		it->second -= balanceToTransport[it->first];
+	}
+}
+
+std::map<std::string, int> City::ÑalculateBalanceToTransport()
 {
 	std::map<std::string, int> balanceToTransport;
 	for (auto it = _balance.begin(); it != _balance.end(); it++)
@@ -109,11 +91,10 @@ std::map<std::string, int> City::calculateBalanceToTransport()
 	return balanceToTransport;
 }
 
-
-bool City::getIsChecked()
+bool City::HasForeignNeighbours(City *** map)
 {
-	return _isChecked;
+	return ((map[_x + 1][_y] && map[_x + 1][_y]->_country != _country) ||
+		(map[_x - 1][_y] && map[_x - 1][_y]->_country != _country) ||
+		(map[_x][_y + 1] && map[_x][_y + 1]->_country != _country) ||
+		(map[_x][_y - 1] && map[_x][_y - 1]->_country != _country));
 }
-
-City::~City()
-{}

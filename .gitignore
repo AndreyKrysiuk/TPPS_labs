@@ -48,3 +48,15 @@ EuroDiffusion/Debug/EuroDiffusion.log
 Debug/EuroDiffusion.pdb
 Debug/EuroDiffusion.ilk
 .vs/EuroDiffusion/v15/ipch/588311f7622a604b.ipch
+*.pdb
+*.idb
+EuroDiffusion/Debug/EuroDiffusion.tlog/unsuccessfulbuild
+EuroDiffusion/Debug/EuroDiffusion.tlog/link.write.1.tlog
+*.tlog
+.vs/EuroDiffusion/v15/Browse.VC.opendb
+.vs/EuroDiffusion/v15/Browse.VC.db
+.vs/EuroDiffusion/v15/Browse.VC.db
+.vs/EuroDiffusion/v15/Browse.VC.db
+Debug/EuroDiffusion.pdb
+.vs/EuroDiffusion/v15/Browse.VC.db
+.vs/EuroDiffusion/v15/.suo

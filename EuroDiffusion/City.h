@@ -8,25 +8,19 @@ public:
 	std::string _country;
 	std::map<std::string, int> _balance;
 	std::map<std::string, int> _tempBalance;
+
 private:
-	bool _isChecked = false;
-	std::map<std::string, int> calculateBalanceToTransport();
+	std::map<std::string, int> ÑalculateBalanceToTransport();
+
 public:
-	City() {};	
-	~City();
 	City(std::string country, int x, int y);
 
-	void sendCoins(City*** europe, int rows, int columns);
-	void recieveCoins(std::string country, int coins);
+	void SendCoins(City*** europe);
+	void SendCoinsToCity(int x, int y, City *** europe, std::map<std::string, int> balanceToTransport);
+	void RecieveCoins(std::string country, int coins);
+	void EndDay();
 
-	void endDay();
-
-	bool isAllCoinsCollected(int countOfTypes);
-
-	std::string getCountry();	
-
-	void setChecked(bool value);
-	bool getIsChecked();
-
+	bool IsAllCoinsCollected(int countOfTypes);
+	bool HasForeignNeighbours(City *** map);
 };
 
