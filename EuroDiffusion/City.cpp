@@ -7,10 +7,10 @@ City::City(std::string country, int x, int y)
 	_country = country;
 	_x = x;
 	_y = y;
-	_balance[_country] = 1000000;
+	_balance[_country] = START_BALANCE;
 }
 
-void City::RecieveCoins(std::string country, int coins)
+void City::RecieveCoins(const std::string& country, int coins)
 {
 	if (_tempBalance.find(country) != _tempBalance.end())
 	{
@@ -51,22 +51,23 @@ bool City::IsAllCoinsCollected(int countOfTypes)
 	return count == countOfTypes;
 }
 
-void City::SendCoins(City*** europe)
+void City::SendCoins(City*** europe, const int& rows, const int& columns)
 {
 	std::map<std::string, int> balanceToTransport = ÑalculateBalanceToTransport();
-	if (europe[_x + 1][_y] != nullptr)
+
+	if (_x < rows && europe[_x + 1][_y] != nullptr)
 	{
 		SendCoinsToCity(_x + 1, _y, europe, balanceToTransport);
 	}
-	if (europe[_x - 1][_y] != nullptr)
+	if (_x > 0 && europe[_x - 1][_y] != nullptr)
 	{
 		SendCoinsToCity(_x - 1, _y, europe, balanceToTransport);
 	}
-	if (europe[_x][_y + 1] != nullptr)
+	if (_y < columns && europe[_x][_y + 1] != nullptr)
 	{
 		SendCoinsToCity(_x, _y + 1, europe, balanceToTransport);
 	}
-	if (europe[_x][_y - 1] != nullptr)
+	if (_y > 0 && europe[_x][_y - 1] != nullptr)
 	{ 
 		SendCoinsToCity(_x, _y - 1, europe, balanceToTransport);
 	}
@@ -86,7 +87,7 @@ std::map<std::string, int> City::ÑalculateBalanceToTransport()
 	std::map<std::string, int> balanceToTransport;
 	for (auto it = _balance.begin(); it != _balance.end(); it++)
 	{
-		balanceToTransport[it->first] = (int) (it->second / 1000);
+		balanceToTransport[it->first] = (int) (it->second / AMOUNT_TO_SEND_ONE_COIN);
 	}
 	return balanceToTransport;
 }

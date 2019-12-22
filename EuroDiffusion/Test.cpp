@@ -46,11 +46,11 @@ void Test1()
 
 	countries.push_back(new Country("France"));
 	countries.push_back(new Country("Spain"));
-	countries.push_back(new Country("Portugal"));
+	countries.push_back(new Country("Argentina"));
 
-	if (countries[0]->BuildCountry(1, 4, 4, 6, europe) &&
-		countries[1]->BuildCountry(3, 1, 6, 3, europe) &&
-		countries[2]->BuildCountry(1, 1, 2, 2, europe))
+	if (countries[0]->BuildCountry(1, 4, 4, 6, europe, x, y) &&
+		countries[1]->BuildCountry(3, 1, 6, 3, europe, x, y) &&
+		countries[2]->BuildCountry(1, 1, 2, 2, europe, x, y))
 	{
 		LaunchDiffusion(europe, countries);
 	}
@@ -74,7 +74,7 @@ void Test2()
 
 	countries.push_back(new Country("Luxembourg"));
 
-	if (countries[0]->BuildCountry(1, 1, 1, 1, europe))
+	if (countries[0]->BuildCountry(1, 1, 1, 1, europe, x, y))
 	{
 		LaunchDiffusion(europe, countries);
 	}
@@ -99,8 +99,8 @@ void Test3()
 	countries.push_back(new Country("Netherlands"));
 	countries.push_back(new Country("Belgium"));
 
-	if (countries[0]->BuildCountry(1, 3, 2, 4, europe) &&
-		countries[1]->BuildCountry(1, 1, 2, 2, europe))
+	if (countries[0]->BuildCountry(1, 3, 2, 4, europe, x, y) &&
+		countries[1]->BuildCountry(1, 1, 2, 2, europe, x, y))
 	{
 		LaunchDiffusion(europe, countries);
 	}
@@ -121,7 +121,8 @@ void Test4()
 	countries.push_back(new Country("Luxembourg"));
 	countries.push_back(new Country("Monaco"));
 
-	if (countries[0]->BuildCountry(1, 1, 1, 1, europe) && countries[1]->BuildCountry(4, 4, 4, 4, europe))
+	if (countries[0]->BuildCountry(1, 1, 1, 1, europe, x, y) 
+		&& countries[1]->BuildCountry(4, 4, 4, 4, europe, x, y))
 	{
 		LaunchDiffusion(europe, countries);
 	}
@@ -147,7 +148,8 @@ void Test5()
 	countries.push_back(new Country("Luxembourg"));
 	countries.push_back(new Country("Monaco"));
 
-	if (countries[0]->BuildCountry(0, 1, 1, 1, europe) && countries[1]->BuildCountry(-4, 4, 4, 4, europe))
+	if (countries[0]->BuildCountry(0, 1, 1, 1, europe, x, y)
+		&& countries[1]->BuildCountry(-4, 4, 4, 4, europe, x, y))
 	{
 		LaunchDiffusion(europe, countries);
 	}
