@@ -10,7 +10,7 @@ public:
 	std::map<std::string, int> _tempBalance;
 
 private:
-	std::map<std::string, int> ÑalculateBalanceToTransport();
+	std::map<std::string, int> Ð¡alculateBalanceToTransport();
 
 public:
 	City(std::string country, int x, int y);
